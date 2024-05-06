@@ -17,6 +17,10 @@ public class Sales {
         this.code = code;
     }
 
+    public Sales() {
+
+    }
+
     public int getId() {
         return id;
     }

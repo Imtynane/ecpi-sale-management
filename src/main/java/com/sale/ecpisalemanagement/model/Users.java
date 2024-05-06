@@ -17,6 +17,10 @@ public class Users {
         this.address = address;
     }
 
+    public Users() {
+
+    }
+
     public int getId() {
         return id;
     }

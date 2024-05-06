@@ -1,6 +1,7 @@
 package com.sale.ecpisalemanagement.sevices;
 
 import com.sale.ecpisalemanagement.model.Category;
+import com.sale.ecpisalemanagement.model.Users;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,65 +9,67 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryService {
-
+public class UserService {
     final static Connection connection = DbService.getConnection();
 
-    public static List<Category> all(){
-        List<Category> categories = new ArrayList<>();
-        String query = "SELECT * FROM categories";
+    public static List<Users> all(){
+        List<Users> users = new ArrayList<>();
+        String query = "SELECT * FROM users";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Category category = new Category();
-                category.setId(rs.getInt("id"));
-                category.setName(rs.getString("name"));
-                category.setDescription(rs.getString("description"));
-                categories.add(category);
+                Users user = new Users();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                users.add(user);
             }
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return categories;
+        return users;
     }
-    public static Category get(int id) {
-        Category category = new Category();
-        String query = "select * from categories where id ='" +id+"'";
+    public static Users get(int id) {
+        Users user = new Users();
+        String query = "select * from users where id ='" +id+"'";
         try{
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                category.setId(rs.getInt("id"));
-                category.setName(rs.getString("name"));
-                category.setDescription(rs.getString("description"));
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
             }
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return category;
+        return user;
     }
-    public static void create(Category category) {
-        String query = "INSERT INTO categories (name, description) VALUES (?,?)";
+    public static void create(Users user) {
+        String query = "INSERT INTO users (name, email, password, address) VALUES (?,?,?)";
         try{
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, category.getName());
-            ps.setString(2, category.getDescription());
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
             ResultSet rs = ps.executeQuery();
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-    public static void update(Category category) {
-        String query = "UPDATE categories SET name = ?, description = ? WHERE id = ?";
+    public static void update(Users user) {
+        String query = "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, category.getName());
-            ps.setString(2, category.getDescription());
-            ps.setInt(3, category.getId());
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setInt(3, user.getId());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -74,7 +77,7 @@ public class CategoryService {
     }
 
     public static void delete(int id) {
-        String query = "DELETE FROM categories WHERE id = ?";
+        String query = "DELETE FROM users WHERE id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
