@@ -14,15 +14,10 @@ public class CategoryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-        var categories = CategoryService.all();
-        for (var category : categories) {
-            System.out.println("Category" +category);
-        }
+        req.getServletContext().getRequestDispatcher("/category/index.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
     }
 }
