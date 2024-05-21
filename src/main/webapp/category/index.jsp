@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<tg:confirm-delete-modal/>
 <tg:template title="Catégorie">
     <jsp:attribute name="content">
         <div class="row p-4">
@@ -69,7 +70,7 @@
 
                                 <td>
                                     <a class="btn btn-info btn-sm" href="${pageContext.request.contextPath}/category/update?id=${c.id}"><i class='fas fa-pen'></i></a>
-                                    <a class="btn btn-info btn-sm" href="${pageContext.request.contextPath}/category/delete?id=${c.id}"><i class='fas fa-pen'></i></a>
+                                    <button class="btn btn-danger btn-sm" onclick="showDeleteModal('${pageContext.request.contextPath}/category/delete?id='+${c.id})"><i class='fas fa-trash'></i></button>
                                 </td>
                             </tr>
                              </c:forEach>
